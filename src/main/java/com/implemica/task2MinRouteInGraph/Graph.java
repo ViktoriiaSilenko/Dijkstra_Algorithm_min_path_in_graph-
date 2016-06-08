@@ -6,7 +6,8 @@ package com.implemica.task2MinRouteInGraph;
 
 public class Graph {
 	
-	private static final int INF = 200000; // to identify that we have no rib between vertices 
+	private final int INF = 200000; // To identify that we have no rib between vertices.
+	// We use 200000, because the cost of each path (which is the sum of costs of all direct connections belongning to this path) is at most 200000
 	
 	private int[][] contiguityMatrix; // contiguity matrix
 	
