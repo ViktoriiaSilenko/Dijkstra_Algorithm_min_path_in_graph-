@@ -85,7 +85,7 @@ public class InputHandler {
 		} while (!isPathNumberCorrect);
 
 		
-		graph.printContiguityMatrix(); //  for testing
+		graph.printContiguityMatrix(PrintSource.CONSOLE); //  for testing
 		Object[] sourcesIndexes = sourceDest.keySet().toArray();
 		for (Object sourcesIndex : sourcesIndexes) {
 			System.out.println( String.format(MessageConstants.MSG_COST_OUTPUT, graph.getMinCostBetweenVertices((int) sourcesIndex,

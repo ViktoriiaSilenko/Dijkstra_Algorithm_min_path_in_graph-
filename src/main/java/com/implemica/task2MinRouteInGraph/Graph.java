@@ -12,8 +12,7 @@ public class Graph {
 	private int[][] contiguityMatrix; // contiguity matrix
 	
 	private int vertexNumber;
-	
-	
+		
 	
 	public Graph(int vertexNumber) {
 		
@@ -37,22 +36,17 @@ public class Graph {
 		contiguityMatrix[fromVertex][toVertex]= cost;
 	}
 	
-	public void printContiguityMatrix () {
-		for (int i = 0; i < vertexNumber; i++) {
-			for (int j = 0; j < vertexNumber; j++) {
-				
-				System.out.print(contiguityMatrix[i][j] + "  ");
+	public void printContiguityMatrix (PrintSource printSource) {
+		if (printSource == PrintSource.CONSOLE) {
+			for (int i = 0; i < vertexNumber; i++) {
+				for (int j = 0; j < vertexNumber; j++) {
+					
+					System.out.print(contiguityMatrix[i][j] + "  ");
+				}
+				System.out.println();
 			}
-			System.out.println();
 		}
-		
 	}
-	
-	
-	
-	
-
-
 
 	/**
      * Calculate a min cost from start vertex to each vertex in graph with positive weights, using Dijkstra Algorithm with O(vertexNumber^2) 

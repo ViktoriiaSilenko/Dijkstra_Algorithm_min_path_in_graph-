@@ -5,10 +5,10 @@ public class MessageConstants {
 	
 	private MessageConstants() { }  // Prevents instantiation
 	
-	public static final String MSG_TESTS_NUMBER_INPUT = "Enter number of tests (attempts). It must be positive number <= "
-			+ MaxNumberConstants.MAX_TEST_NUMBER;
-	public static final String MSG_INVALID_TEST_NUMBER_INPUT = "Your input does not a positive number or greater than "
-			+ MaxNumberConstants.MAX_TEST_NUMBER + ". It must be positive number <= " + MaxNumberConstants.MAX_TEST_NUMBER;
+	public static final String MSG_TESTS_NUMBER_INPUT = "Enter number of tests (attempts). It must be positive number <= " +
+			MaxNumberConstants.MAX_TEST_NUMBER;
+	public static final String MSG_INVALID_TEST_NUMBER_INPUT = "Your input does not a positive number or greater than " + 
+			MaxNumberConstants.MAX_TEST_NUMBER + ". It must be positive number <= " + MaxNumberConstants.MAX_TEST_NUMBER;
 
 	public static final String MSG_VERTEX_NUMBER_INPUT = "Enter the number of cities <= " + MaxNumberConstants.MAX_VERTEX_NUMBER;
 	public static final String MSG_INVALID_VERTEX_NUMBER_INPUT = "Your input does not a positive number or greater than " + MaxNumberConstants.MAX_VERTEX_NUMBER + 
