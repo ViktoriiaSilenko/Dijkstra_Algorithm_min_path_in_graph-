@@ -29,6 +29,10 @@ public class Graph {
 		}
 	}
 	
+	public int getVertexNumber() {
+		return vertexNumber;
+	}
+	
 	public void setCost(int fromVertex, int toVertex, int cost) {
 		contiguityMatrix[fromVertex][toVertex]= cost;
 	}

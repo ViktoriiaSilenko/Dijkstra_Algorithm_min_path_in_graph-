@@ -20,7 +20,7 @@ public class MessageConstants {
 	public static final String MSG_CITY_NAME_INPUT = "Enter city name";
 	public static final String MSG_NEIGHBOURS_NUMBER_INPUT = "Enter number of neighbours of city. It should be positive number <= %s ";
 	
-	public static final String MSG_NR_COST_INPUT = "Enter nr cost (with space) , where  nr - index of a city connected to %s " + 
+	public static final String MSG_NR_COST_INPUT = "Enter nr cost (with space) , where  nr - index of a city connected to this city " + 
 			" (the index of the first city is 1, index should be >= 1 and <= %s) and [cost - positive integer number of the transportation cost]";
 
 	public static final String MSG_INVALID_NR_COST_INPUT = "Index should be >= 1 and <= %s and cost should be > 0";
