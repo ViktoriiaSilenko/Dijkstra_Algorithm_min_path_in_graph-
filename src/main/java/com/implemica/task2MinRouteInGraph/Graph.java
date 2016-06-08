@@ -66,18 +66,22 @@ public class Graph {
 
 		while (true) {
 			int currNearestVertex = -1;
-			for (int vertex = 0; vertex < vertexNumber; vertex++) 
+			for (int vertex = 0; vertex < vertexNumber; vertex++) {
 				// select nearest by cost unused vertex
-				if (!usedVertex[vertex] && distancesToStartVertex[vertex] < INF 
-						&& (currNearestVertex == -1 || distancesToStartVertex[vertex] < distancesToStartVertex[currNearestVertex])) 
+				if (!usedVertex[vertex] && distancesToStartVertex[vertex] < INF && (currNearestVertex == -1 || distancesToStartVertex[vertex] < distancesToStartVertex[currNearestVertex])) {
 					currNearestVertex = vertex;
-			if (currNearestVertex == -1)
+				}
+			}
+			if (currNearestVertex == -1) {
 				break; // all vertex are used => end
+			}
 			usedVertex[currNearestVertex] = true; 
-			for (int nv = 0; nv < vertexNumber; nv++)
-				if (!usedVertex[nv] && contiguityMatrix[nv][currNearestVertex] < INF) // for all unused contiguous vertexes
+			for (int nv = 0; nv < vertexNumber; nv++) {
+				if (!usedVertex[nv] && contiguityMatrix[nv][currNearestVertex] < INF) { // for all unused contiguous vertexes
 					// recalculate distance
 					distancesToStartVertex[nv] = Math.min(distancesToStartVertex[nv], distancesToStartVertex[currNearestVertex] + contiguityMatrix[nv][currNearestVertex]); 
+				}
+			}
 		}
 		return distancesToStartVertex;
 	}
