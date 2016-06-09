@@ -2,7 +2,7 @@ package com.implemica.task2MinRouteInGraph;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class InputHandler {
@@ -83,7 +83,6 @@ public class InputHandler {
 
 			}
 		} while (!isPathNumberCorrect);
-
 		
 		// graph.printContiguityMatrix(PrintSource.CONSOLE); //  for testing
 		Object[] sourcesIndexes = sourceDest.keySet().toArray();
@@ -104,8 +103,8 @@ public class InputHandler {
 				if (vertexNumber > 0 && vertexNumber <= MaxNumberConstants.MAX_VERTEX_NUMBER) {
 
 					Graph graph = new Graph(vertexNumber);
-					Map<String, Integer> vertices = new HashMap<>();
-					Map<Integer, Integer> sourceDest = new HashMap<>();
+					Map<String, Integer> vertices = new LinkedHashMap<>();
+					Map<Integer, Integer> sourceDest = new LinkedHashMap<>();
 
 					for (int vertexIndex = 0; vertexIndex < vertexNumber; vertexIndex++) {
 
