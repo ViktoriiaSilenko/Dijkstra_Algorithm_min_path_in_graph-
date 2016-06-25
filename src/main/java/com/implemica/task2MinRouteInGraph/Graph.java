@@ -1,7 +1,11 @@
 package com.implemica.task2MinRouteInGraph;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.PrintStream;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.BitSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author Viktoriia Silenko
@@ -15,6 +19,9 @@ public class Graph {
 	private int[][] contiguityMatrix; // contiguity matrix
 	
 	private int vertexNumber;
+	
+	private Map <Entry<Integer,Integer>, Integer> lazyCache = new HashMap <Entry<Integer,Integer>, Integer> (); // use lazy cashe 
+	//because data (distances between cities) is changed rarely
 		
 	
 	public Graph(int vertexNumber) {
@@ -37,17 +44,16 @@ public class Graph {
 	
 	public void setCost(int fromVertex, int toVertex, int cost) {
 		contiguityMatrix[fromVertex][toVertex]= cost;
+		lazyCache.clear();
 	}
 	
-	public void printContiguityMatrix (PrintSource printSource) {
-		if (printSource == PrintSource.CONSOLE) {
-			for (int i = 0; i < vertexNumber; i++) {
-				for (int j = 0; j < vertexNumber; j++) {
-					
-					System.out.print(contiguityMatrix[i][j] + "  ");
-				}
-				System.out.println();
+	public void printContiguityMatrix(PrintStream printStream) {
+		for (int i = 0; i < vertexNumber; i++) {
+			for (int j = 0; j < vertexNumber; j++) {
+
+				printStream.print(contiguityMatrix[i][j] + "  ");
 			}
+			printStream.println();
 		}
 	}
 
@@ -60,7 +66,11 @@ public class Graph {
 	/* Dijkstra Algorithm O(vertexNumber^2) */
 	private int[] dijkstraAlgorithm(int startVertex) {
 		
-		List <Integer> visitedVertexes = new ArrayList<>(); // посещенные вершины
+		BitSet unvisitedVertexes = new BitSet(vertexNumber); // непосещенные вершины
+
+		for (int i = 0; i < vertexNumber; i++) {
+			unvisitedVertexes.set(i); 
+		}
 		int [] minDistances = new int[vertexNumber]; // кратчайшие расстояния до i-вершины из startVertex-вершины             
 		
 		//minDistances[startVertex] = 0;
@@ -71,23 +81,24 @@ public class Graph {
 			
 		}
 		
-		while (visitedVertexes.size() <= vertexNumber-1) {
+		while (!unvisitedVertexes.isEmpty()) {
 			int minD = INF;
 			int v = -1;
-			for (int i = 0; i < vertexNumber; i++) {
-				if (!visitedVertexes.contains(i)) {
-					if (minDistances[i] < minD) {
-						minD = minDistances[i];
-						v = i;
-					}
+
+			for (int i = unvisitedVertexes.nextSetBit(0); i != -1; i = unvisitedVertexes.nextSetBit(i + 1)) {
+				if (minDistances[i] < minD) {
+					minD = minDistances[i];
+					v = i;
 				}
 			}
-			visitedVertexes.add(v);
-			
-			for (int i = 0; i < vertexNumber; i++) {
-				if (!visitedVertexes.contains(i) && contiguityMatrix[v][i] != 0) {
-					if (minDistances[i] > minDistances[v] + contiguityMatrix[v][i]) {
-						minDistances[i] = minDistances[v] + contiguityMatrix[v][i];
+		
+			unvisitedVertexes.clear(v);
+
+			for (int i = unvisitedVertexes.nextSetBit(0); i != -1; i = unvisitedVertexes.nextSetBit(i + 1)) {
+				int neighborVertex = contiguityMatrix[v][i];
+				if (neighborVertex != 0) {
+					if (minDistances[i] > minDistances[v] + neighborVertex) {
+						minDistances[i] = minDistances[v] + neighborVertex;
 					}
 				}
 			}
@@ -98,8 +109,17 @@ public class Graph {
 	
 	
 	public int getMinCostBetweenVertices (int startVertex, int endVertex) {
-		int [] distancesToStartVertex = dijkstraAlgorithm(startVertex);
-		return distancesToStartVertex[endVertex];
+
+		Entry<Integer,Integer> vertexesPairKey = new SimpleEntry<>(startVertex, endVertex);
+	
+		if (lazyCache.containsKey(vertexesPairKey)) {
+            return lazyCache.get(vertexesPairKey);
+        } else {
+			int [] distancesToStartVertex = dijkstraAlgorithm(startVertex);
+			int minDistanceValue = distancesToStartVertex[endVertex];
+			lazyCache.put(vertexesPairKey, minDistanceValue);
+			return minDistanceValue;
+        }
 	}
 
 }

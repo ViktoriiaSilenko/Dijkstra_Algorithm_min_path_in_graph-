@@ -2,12 +2,15 @@ package com.implemica.task2MinRouteInGraph;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class InputHandler {
 
 	private BufferedReader br;
+	private Pattern cityNamePattern = Pattern.compile("[a-zA-Z]{1,10}");
 	
 	public InputHandler(BufferedReader br) {
 		this.br = br;
@@ -52,9 +55,11 @@ public class InputHandler {
 
 					System.out.println(MessageConstants.MSG_SRC_DEST_CITY_INPUT);
 					String[] sourceDestination = br.readLine().split("\\s+");
+					
 					boolean isSourceDestinationCorrect = false;
 					do {
-						if (sourceDestination.length == 2) {
+						if (sourceDestination.length == 2 && cityNamePattern.matcher(sourceDestination[0]).matches() 
+								&& cityNamePattern.matcher(sourceDestination[1]).matches()) {
 							isSourceDestinationCorrect = true;
 							if (!vertices.isEmpty()) {
 								Integer sourceIndex = vertices.get(sourceDestination[0]);
@@ -84,7 +89,7 @@ public class InputHandler {
 			}
 		} while (!isPathNumberCorrect);
 		
-		// graph.printContiguityMatrix(PrintSource.CONSOLE); //  for testing
+		graph.printContiguityMatrix(new PrintStream(System.out)); //  for testing
 		Object[] sourcesIndexes = sourceDest.keySet().toArray();
 		for (Object sourcesIndex : sourcesIndexes) {
 			System.out.println( String.format(MessageConstants.MSG_COST_OUTPUT, graph.getMinCostBetweenVertices((int) sourcesIndex,
@@ -108,10 +113,19 @@ public class InputHandler {
 
 					for (int vertexIndex = 0; vertexIndex < vertexNumber; vertexIndex++) {
 
-						System.out.println(MessageConstants.MSG_CITY_NAME_INPUT);
+						boolean isCityNameCorrect = false;
+						do {
+							System.out.println(MessageConstants.MSG_CITY_NAME_INPUT);
 
-						String cityName = br.readLine();
-						vertices.put(cityName, vertexIndex);
+							String cityName = br.readLine();
+							
+							if(isCityNameCorrect = cityNamePattern.matcher(cityName).matches()) {
+								vertices.put(cityName, vertexIndex);
+							} else {
+								System.out.println(MessageConstants.MSG_INVALID_CITY_NAME);
+							}
+						} while (!isCityNameCorrect);
+						
 
 						System.out.println(String.format(MessageConstants.MSG_NEIGHBOURS_NUMBER_INPUT, vertexNumber - 1));
 						

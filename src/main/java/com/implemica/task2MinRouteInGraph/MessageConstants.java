@@ -16,6 +16,7 @@ public class MessageConstants {
 
 	public static final String MSG_IO_ERROR = "Error with reading your input";
 	public static final String MSG_INVALID_NUMBER = "Your input does not a number.";
+	public static final String MSG_INVALID_CITY_NAME = "City name does not correct. It should contain only characters a..Z and at most 10 characters.";
 	
 	public static final String MSG_CITY_NAME_INPUT = "Enter city name";
 	public static final String MSG_NEIGHBOURS_NUMBER_INPUT = "Enter number of neighbours of city. It should be positive number <= %s ";
@@ -29,9 +30,9 @@ public class MessageConstants {
 	public static final String MSG_INVALID_NEIGHBOURS_NUMBER_INPUT = "Number of neighbours of city should be positive number <= %s";
 	public static final String MSG_PATH_NUMBER_INPUT = "Enter the number of paths to find. It is positive number <= " + MaxNumberConstants.MAX_PATH_NUMBER;
 	
-	public static final String MSG_SRC_DEST_CITY_INPUT = "Enter NAME1 NAME2 (with space) , where NAME1 - source city name, NAME2 - destination city name";
+	public static final String MSG_SRC_DEST_CITY_INPUT = "Enter NAME1 NAME2 (with space) , where NAME1 - source city name (should contain only characters a..Z and at most 10 characters), NAME2 - destination city name (should contain only characters a..Z and at most 10 characters)";
 	public static final String MSG_INCORRECT_CITIES_INPUT = "There are no such cities";
-	public static final String MSG_INVALID_PAIR_SRC_DEST_INPUT = "Please enter two city with space";
+	public static final String MSG_INVALID_PAIR_SRC_DEST_INPUT = "Please enter two cities with space. Each city should contain only characters a..Z and at most 10 characters";
 	
 	public static final String MSG_INVALID_PATH_NUMBER_INPUT = "Number of path should be positive number <= " + MaxNumberConstants.MAX_PATH_NUMBER;
 	public static final String MSG_COST_OUTPUT = "Cost = %s";
