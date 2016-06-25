@@ -78,27 +78,26 @@ public class Graph {
 			if (i != startVertex) {
 				minDistances[i] = INF;
 			}
-			
 		}
 		
 		while (!unvisitedVertexes.isEmpty()) {
-			int minD = INF;
-			int v = -1;
+			int minDistance = INF;
+			int vertexWithMinDistance = -1;
 
-			for (int i = unvisitedVertexes.nextSetBit(0); i != -1; i = unvisitedVertexes.nextSetBit(i + 1)) {
-				if (minDistances[i] < minD) {
-					minD = minDistances[i];
-					v = i;
+			for (int i = unvisitedVertexes.nextSetBit(0); i != -1; i = unvisitedVertexes.nextSetBit(i+1)) {
+				if (minDistances[i] < minDistance) {
+					minDistance = minDistances[i];
+					vertexWithMinDistance = i;
 				}
 			}
 		
-			unvisitedVertexes.clear(v);
+			unvisitedVertexes.clear(vertexWithMinDistance);
 
-			for (int i = unvisitedVertexes.nextSetBit(0); i != -1; i = unvisitedVertexes.nextSetBit(i + 1)) {
-				int neighborVertex = contiguityMatrix[v][i];
-				if (neighborVertex != 0) {
-					if (minDistances[i] > minDistances[v] + neighborVertex) {
-						minDistances[i] = minDistances[v] + neighborVertex;
+			for (int i = unvisitedVertexes.nextSetBit(0); i != -1; i = unvisitedVertexes.nextSetBit(i+1)) {
+				int neighborVertex = contiguityMatrix[vertexWithMinDistance][i];
+				if (neighborVertex != 0) { // if rib between vertices exists
+					if (minDistances[i] > minDistances[vertexWithMinDistance] + neighborVertex) {
+						minDistances[i] = minDistances[vertexWithMinDistance] + neighborVertex;
 					}
 				}
 			}
